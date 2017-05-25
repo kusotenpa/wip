@@ -1,0 +1,16 @@
+bps(260/60)
+
+let pat1 = "{~ 0 ~ 4 -15 0*3 0 0*2 [~ 0] -8 0*3 ~ 0 ~ 0 -17 0*3 ~ [~ ~ 0] [~ 0 ~] ~ 0*2 -12}%16"
+
+d1 $
+every 16 (# vowel "a") $
+every 8 (# speed "2") $
+every 16 (# hcutoff "50") $
+stack [
+  up pat1 |=| sound "arp:2 cp:1 bass:3 bass:0 bass:2 bass:1" |+| speed "0.75 0.5 2.0 0.5" |+| gain "1.2",
+  sound "jazz:8*2 dr*8 909*3 atom*3"
+]
+
+d1 $sound "bass:3*2 bass:1*2 bass:0*2 bass:2*2 jazz:8"
+
+hush
