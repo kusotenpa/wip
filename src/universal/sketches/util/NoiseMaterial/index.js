@@ -19,6 +19,7 @@ export default class NoiseMaterial {
       brightness: { value: 0.0 },
       isNegative: { value: false },
       isHalf: { value: false },
+      opacity: { value: 1. },
     }
 
     return new THREE.RawShaderMaterial({

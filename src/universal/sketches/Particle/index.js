@@ -8,7 +8,7 @@ import fsParticle from './glsl/particle/fs'
 import fsPosition from './glsl/position/fs'
 import fsVelocity from './glsl/velocity/fs'
 
-const WIDTH = 2000
+const WIDTH = 1000
 const PARTICLE_NUM = WIDTH ** 2
 
 export default class Particle extends BaseSketch {
@@ -18,7 +18,7 @@ export default class Particle extends BaseSketch {
   }
 
   setup() {
-    this.addAxisHelper()
+    // this.addAxisHelper()
     // this.canRender = true
     this.camera.position.set(0, 0, 900)
     this.camera.lookAt(this.scene.position)
@@ -118,6 +118,7 @@ export default class Particle extends BaseSketch {
     this.particleUniforms = {
       texturePosition: { value: null },
       time: { value: null },
+      opacity: { value: 1 },
       cameraConstant: { value: this._getCameraConstant(this.camera) },
     }
 
@@ -142,16 +143,17 @@ export default class Particle extends BaseSketch {
   }
 
   _updateUniforms(time) {
+    const value = this.knob0 + 0.1
     const targetRange = 500
     const positionUniforms = this.positionVariable.material.uniforms
     // positionUniforms.time.value = time / 1000
-    positionUniforms.velocity.value = Math.random() * 100.0 - 40
+    positionUniforms.velocity.value = Math.random() * (100.0 * value - 40 * value)
     positionUniforms.targetPoint.value = new THREE.Vector2(
       Math.random() * targetRange * 2 - targetRange,
       Math.random() * targetRange * 2 - targetRange
     )
     this.particleUniforms.texturePosition.value = this.gpgpu.getCurrentRenderTarget(this.positionVariable).texture
-    // this.particleUniforms.time.value = time / 1000
+    this.particleUniforms.opacity.value = this.knob1
   }
 
   render(time) {

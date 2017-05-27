@@ -8,6 +8,8 @@ export default `
   uniform mat4 modelViewMatrix;
   uniform mat4 projectionMatrix;
 
+  uniform float time;
+  uniform float knob0;
   uniform int targetVertex;
   uniform bool isAddX;
   uniform bool isAddY;
@@ -18,7 +20,6 @@ export default `
   uniform bool isDivX;
   uniform bool isDivY;
   uniform bool isDivZ;
-  uniform float time;
 
   ${noise}
 
@@ -31,27 +32,27 @@ export default `
     vec3 newPosition;
 
     float noise = snoise(vec3(
-      position.x * .015 + time * .5,
-      position.y * .015 + time * .5,
-      position.z * .015 + time * .5
+      position.x * (2. * knob0 + .015) + time * (knob0 + .1),
+      position.y * (2. * knob0 + .015) + time * (knob0 + .1),
+      position.z * (2. * knob0 + .015) + time * (knob0 + .1)
     ));
 
     newPosition.x = mod(vertexNumber, float(targetVertex)) != 0. ? position.x
-      : isAddX ? position.x + (noise * 20.)
-      : isMultiX ? position.x * (noise * 20.)
       : isDivX ? position.x / (noise * 200.)
+      : isMultiX ? position.x * (noise * 20.)
+      : isAddX ? position.x + (noise * 20.)
       : position.x;
 
     newPosition.y = mod(vertexNumber, float(targetVertex)) != 0. ? position.y
-      : isAddY ? position.y + (noise * 20.)
-      : isMultiY ? position.y * (noise * 20.)
       : isDivY ? position.y / (noise * 200.)
+      : isMultiY ? position.y * (noise * 20.)
+      : isAddY ? position.y + (noise * 20.)
       : position.y;
 
     newPosition.z = mod(vertexNumber, float(targetVertex)) != 0. ? position.z
-      : isAddZ ? position.z + (noise * 20.)
-      : isMultiZ ? position.z * (noise * 20.)
       : isDivZ ? position.z / (noise * 200.)
+      : isMultiZ ? position.z * (noise * 20.)
+      : isAddZ ? position.z + (noise * 20.)
       : position.z;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);

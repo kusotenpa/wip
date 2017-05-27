@@ -4,7 +4,7 @@ import BaseSketch from '../BaseSketch'
 import vs from './glsl/vs'
 import fs from './glsl/fs'
 
-export default class Voronoi extends BaseSketch {
+export default class LineNoise extends BaseSketch {
 
   constructor(options) {
     super(options)

@@ -18,24 +18,24 @@ export default class Square extends BaseSketch {
     this._createMetaBall()
   }
 
-  initGUI() {
-    const _this = this
-    const folder = this.gui.addFolder('MetaBall')
-    const controls = this.controls = new function() {
-      this.x = _this.uniforms.x.value
-      this.y = _this.uniforms.y.value
-      this.z = _this.uniforms.z.value
-      this.isHalf = _this.uniforms.isHalf.value
-      this.isNegative = _this.uniforms.isNegative.value
-    }
-
-    folder.add(controls, 'x', 0.0, 200).onChange(v => this.uniforms.x.value = v)
-    folder.add(controls, 'y', 0.0, 200).onChange(v => this.uniforms.y.value = v)
-    folder.add(controls, 'z', 0.0, 200).onChange(v => this.uniforms.z.value = v)
-    folder.add(controls, 'isHalf', 0.0, 200).onChange(v => this.uniforms.isHalf.value = v)
-    folder.add(controls, 'isNegative', 0.0, 200).onChange(v => this.uniforms.isNegative.value = v)
-    // folder.open()
-  }
+  // initGUI() {
+  //   const _this = this
+  //   const folder = this.gui.addFolder('MetaBall')
+  //   const controls = this.controls = new function() {
+  //     this.x = _this.uniforms.x.value
+  //     this.y = _this.uniforms.y.value
+  //     this.z = _this.uniforms.z.value
+  //     this.isHalf = _this.uniforms.isHalf.value
+  //     this.isNegative = _this.uniforms.isNegative.value
+  //   }
+  //
+  //   folder.add(controls, 'x', 0.0, 200).onChange(v => this.uniforms.x.value = v)
+  //   folder.add(controls, 'y', 0.0, 200).onChange(v => this.uniforms.y.value = v)
+  //   folder.add(controls, 'z', 0.0, 200).onChange(v => this.uniforms.z.value = v)
+  //   folder.add(controls, 'isHalf', 0.0, 200).onChange(v => this.uniforms.isHalf.value = v)
+  //   folder.add(controls, 'isNegative', 0.0, 200).onChange(v => this.uniforms.isNegative.value = v)
+  //   // folder.open()
+  // }
 
   _createMetaBall() {
     const sphere = this.sphere = new THREE.SphereBufferGeometry(100, 100, 100)

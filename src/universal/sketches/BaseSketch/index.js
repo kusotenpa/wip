@@ -14,7 +14,7 @@ export default class BaseSketch {
   canRender = false
   knob0 = 1
   knob1 = 1
-  BPM = 120
+  bpm = 120
 
   constructor(options = {}) {
     const {
@@ -82,7 +82,10 @@ export default class BaseSketch {
       this.onWindowResize()
     })
     if (this.emitter) {
-      this.emitter.on('tidal', name => this.onReceiveTidal(name))
+      this.emitter.on('*', (type, arg) => {
+        type.indexOf('tidal') !== -1 ? this.onReceiveTidal(arg) : null
+        type.indexOf('midi:') !== -1 ? this.onReceiveMidi(type, arg) : null
+      })
     }
   }
 
@@ -102,6 +105,8 @@ export default class BaseSketch {
   setup() {}
 
   onReceiveTidal() {}
+
+  onReceiveMidi() {}
 
   onWindowResize() {}
 

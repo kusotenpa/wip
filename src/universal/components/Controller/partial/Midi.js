@@ -67,7 +67,7 @@ export default class Midi {
     let velocity = e.data[ 2 ]
     let isKnob0 = false
     let isKnob1 = false
-    let note
+    let padNum
     const isKnob = KNOB === type && (KNOB0_NOTES.indexOf(num) !== -1 || KNOB1_NOTES.indexOf(num) !== -1)
     const isPad = (PAD_DOWN === type || PAD_UP === type) && PAD_NOTES.indexOf(num) !== -1
     const isArrow = ARROW === type && ARROW_NOTES.indexOf(num) !== -1
@@ -80,13 +80,13 @@ export default class Midi {
       const knob1Note = KNOB1_NOTES.indexOf(num)
       isKnob0 = knob0Note > -1
       isKnob1 = !isKnob0
-      note = Math.max(knob0Note, knob1Note)
+      padNum = Math.max(knob0Note, knob1Note)
 
     } else if (isPad) {
       const color = this._isUp ? YELLOW : GREEN
       let activePads = this._isUp ? this._activePadsUp : this._activePads
       const isActive = activePads.indexOf(num) > -1
-      note = PAD_NOTES.indexOf(num)
+      padNum = PAD_NOTES.indexOf(num)
 
       if (isActive) {
         midi.send([ type, num, OFF ])
@@ -129,7 +129,8 @@ export default class Midi {
       isKnob1,
       isPad,
       isArrow,
-      note,
+      isUp: this._isUp,
+      padNum,
       velocity,
     }
 

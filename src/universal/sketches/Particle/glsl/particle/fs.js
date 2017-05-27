@@ -4,7 +4,7 @@ export default `
 
   varying vec4 vColor;
 
-  uniform float time;
+  uniform float opacity;
 
   ${rand}
 
@@ -16,7 +16,7 @@ export default `
     //   discard;
     // }
 
-    gl_FragColor = vec4(vec3(l), 1.0) * vColor;
+    gl_FragColor = vec4(vec3(l), opacity) * vColor;
   }
 
 `

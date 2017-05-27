@@ -7,11 +7,11 @@ const THREE = require('three')
 import sketches from '../../sketches'
 import s from './style'
 
+const MAX_BPM = 200
+
 export default class Screen extends Component {
 
   _sketches = null
-
-  isFullScreen = false
 
   emitter = mitt()
 
@@ -59,6 +59,7 @@ export default class Screen extends Component {
       canvas: this._c,
       antialias: true,
     })
+    renderer.setPixelRatio(1)
     renderer.autoClear = false
     renderer.setSize(width, height)
   }
@@ -105,21 +106,32 @@ export default class Screen extends Component {
 
   _onReceiveMidi(data) {
     const {
-      note,
+      padNum,
       velocity,
       isPad,
       isKnob0,
+      isKnob1,
+      isArrow,
+      isUp,
     } = data
-    const target = this._sketches[ note ]
-
-    if (!target) return
+    const target = this._sketches[ padNum ]
 
     if (isPad) {
-      target.canRender = !!velocity
+      if (isUp) {
+        this.emitter.emit('midi:pad', { padNum, velocity })
+      } else if (target) {
+        target.canRender = !!velocity
+      }
     } else if (isKnob0) {
-      target.knob0 = velocity
-    } else {
+      if (target) {
+        target.knob0 = velocity
+      } else if (!target && padNum === 7) {
+        this._sketches.forEach(sketch => sketch.bpm = velocity * MAX_BPM)
+      }
+    } else if (isKnob1 && target) {
       target.knob1 = velocity
+    } else if (isArrow) {
+      this.emitter.emit('midi:arrow', { isUp })
     }
   }
 

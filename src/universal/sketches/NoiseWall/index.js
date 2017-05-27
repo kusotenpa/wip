@@ -68,6 +68,7 @@ export default class Square extends BaseSketch {
     noiseMat.uniforms.bz.value = 10
     noiseMat.uniforms.brightness.value = -0.4
     noiseMat.uniforms.isHalf.value = true
+    noiseMat.uniforms.opacity.value = this.knob1
     this.uniforms = noiseMat.uniforms
     return mesh
   }
@@ -130,17 +131,25 @@ export default class Square extends BaseSketch {
 
   _updateUniforms(time) {
     this.uniforms.time.value = time / 10000
+    this.uniforms.rz.value = this.knob0 * 200
+    this.uniforms.gz.value = this.knob0 * 200
+    this.uniforms.bz.value = this.knob0 * 200
+    this.uniforms.opacity.value = this.knob1
+  }
+
+  _updateCubeRotate() {
+    if (Math.random() > 1 - this.knob0 - .2) {
+      if (Math.random() > 0.5) {
+        this._rotateX(this.group.children[ Math.floor(Math.random() * 14) ].children[ Math.floor(Math.random() * 14) ])
+      } else {
+        this._rotateY(this.group.children[ Math.floor(Math.random() * 14) ].children[ Math.floor(Math.random() * 14) ])
+      }
+    }
   }
 
   render(time) {
     this._updateUniforms(time)
-    if (Math.random() > 0.8) {
-      if (Math.random() > 0.5) {
-        this._rotateX(this.group.children[Math.floor(Math.random() * 14)].children[Math.floor(Math.random() * 14)])
-      } else {
-        this._rotateY(this.group.children[Math.floor(Math.random() * 14)].children[Math.floor(Math.random() * 14)])
-      }
-    }
+    this._updateCubeRotate()
     this.renderer.render(this.scene, this.camera)
   }
 

@@ -48,7 +48,7 @@ export default class Preview extends Component {
     } = this.props
 
     const {
-      note: midiNote,
+      padNum: midiNote,
       velocity,
     } = data
 

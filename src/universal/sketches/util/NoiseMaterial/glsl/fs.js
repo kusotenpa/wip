@@ -14,6 +14,7 @@ export default `
   uniform float by;
   uniform float bz;
   uniform float time;
+  uniform float opacity;
   uniform float brightness;
   uniform bool isNegative;
   uniform bool isHalf;
@@ -41,6 +42,6 @@ export default `
 
     vec3 color = isNegative ? 1.0 - vec3(r, g, b) : vec3(r, g, b);
 
-    gl_FragColor = vec4(color + brightness, 1.0);
+    gl_FragColor = vec4(color + brightness, opacity);
   }
 `
