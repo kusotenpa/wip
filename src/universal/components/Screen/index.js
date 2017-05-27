@@ -40,8 +40,8 @@ export default class Screen extends Component {
 
   _initDatGUI() {
     const dat = require('dat-gui')
-    this.gui = new dat.GUI()
-    this.gui.domElement.style.float = 'left'
+    // this.gui = new dat.GUI()
+    // this.gui.domElement.style.float = 'left'
   }
 
   _initSocket() {
