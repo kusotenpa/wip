@@ -5,10 +5,12 @@
   "author": "kusotenpa <t.bass0326@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "pm2 start pm2.config.js --only vj && pm2 logs",
+    "start": "npm-run-all -s build:* serve",
     "stop": "pm2 stop pm2.config.js && pm2 flush",
-    "build": "gulp build",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "serve": "pm2 start pm2.config.js --only vj && pm2 logs",
+    "build:server": "gulp build",
+    "build:client": "webpack --config webpack/index.js"
   },
   "dependencies": {
     "aphrodite": "1.2.0",
@@ -46,6 +48,7 @@
     "gulp-babel": "6.1.2",
     "gulp-plumber": "1.1.0",
     "gulp-watch": "4.3.11",
+    "npm-run-all": "4.0.2",
     "require-dir": "0.3.1",
     "webpack": "2.2.1"
   }
