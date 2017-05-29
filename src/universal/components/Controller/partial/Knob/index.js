@@ -54,7 +54,7 @@ export default class Knob extends Component {
     } = this.props
 
     const {
-      note: midiNote,
+      padNum: midiNote,
       velocity,
       isKnob0,
       isKnob1,

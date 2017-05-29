@@ -50,9 +50,10 @@ export default class Preview extends Component {
     const {
       padNum: midiNote,
       velocity,
+      isUp,
     } = data
 
-    if (note !== midiNote) return
+    if (note !== midiNote || isUp) return
 
     this.setState({ isActive: !!velocity })
   }
