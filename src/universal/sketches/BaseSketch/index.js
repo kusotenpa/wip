@@ -1,6 +1,8 @@
 const THREE = require('three')
 const OrbitControls = require('three-orbit-controls')(THREE)
 
+import config from '../../config'
+
 export default class BaseSketch {
 
   width = null
@@ -33,7 +35,7 @@ export default class BaseSketch {
     this.__initScene()
     this.__initCamera(camera)
     this.setup()
-    gui && this.initGUI()
+    gui && config.useGui && this.initGUI()
     canResize && this.__setEvents()
   }
 
@@ -70,7 +72,7 @@ export default class BaseSketch {
     camera.lookAt(this.scene.position)
     camera.updateProjectionMatrix()
 
-    if (useOrbitControls) {
+    if (useOrbitControls && config.useOrbitControls) {
       this.controls = new OrbitControls(camera, this.renderer.domElement)
       this.controls.enableZoom = true
     }
@@ -97,6 +99,8 @@ export default class BaseSketch {
   }
 
   addAxisHelper() {
+    if (!config.useAxisHelper) return
+
     this.scene.add(new THREE.AxisHelper(1000))
   }
 

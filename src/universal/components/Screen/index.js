@@ -6,6 +6,7 @@ const THREE = require('three')
 
 import sketches from '../../sketches'
 import s from './style'
+import config from '../../config'
 
 const MAX_BPM = 200
 
@@ -29,7 +30,7 @@ export default class Screen extends Component {
       isController = false,
     } = this.props
 
-    !isController && this._initDatGUI()
+    !isController && config.useGui && this._initDatGUI()
     this._initSocket()
     this._initRenderer()
     this._initSketches()
@@ -40,8 +41,8 @@ export default class Screen extends Component {
 
   _initDatGUI() {
     const dat = require('dat-gui')
-    // this.gui = new dat.GUI()
-    // this.gui.domElement.style.float = 'left'
+    this.gui = new dat.GUI()
+    this.gui.domElement.style.float = 'left'
   }
 
   _initSocket() {

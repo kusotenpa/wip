@@ -5,7 +5,8 @@
   "author": "kusotenpa <t.bass0326@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "npm-run-all -s build:* serve",
+    "start:prd": "env NODE_ENV=production npm-run-all -p start",
+    "start": "npm-run-all -p build:* serve watch",
     "stop": "pm2 stop pm2.config.js && pm2 flush",
     "watch": "gulp watch",
     "serve": "pm2 start pm2.config.js --only vj && pm2 logs",

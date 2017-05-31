@@ -11,7 +11,7 @@ export default class Voronoi extends BaseSketch {
   }
 
   setup() {
-    // this.addAxisHelper()
+    this.addAxisHelper()
     // this.canRender = true
     this.camera.position.set(0, 0, 100)
     this.camera.lookAt(this.scene.position)

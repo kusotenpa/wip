@@ -9,7 +9,6 @@ export default class Preview extends Component {
 
   constructor() {
     super()
-
     this.setState({ isActive: false })
     this._onMidiMessage = ::this._onMidiMessage
   }

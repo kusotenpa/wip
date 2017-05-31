@@ -11,7 +11,7 @@ export default class Square extends BaseSketch {
   }
 
   setup() {
-    // this.addAxisHelper()
+    this.addAxisHelper()
     // this.canRender = true
     this.camera.position.set(0, 0, 100)
     this.camera.lookAt(this.scene.position)
@@ -19,38 +19,38 @@ export default class Square extends BaseSketch {
 
   }
 
-  // initGUI() {
-  //   const _this = this
-  //   const folder = this.gui.addFolder('Noise')
-  //   const controls = this.controls = new function() {
-  //     this.rx = _this.uniforms.rx.value
-  //     this.ry = _this.uniforms.ry.value
-  //     this.rz = _this.uniforms.rz.value
-  //     this.gx = _this.uniforms.gx.value
-  //     this.gy = _this.uniforms.gy.value
-  //     this.gz = _this.uniforms.gz.value
-  //     this.bx = _this.uniforms.bx.value
-  //     this.by = _this.uniforms.by.value
-  //     this.bz = _this.uniforms.bz.value
-  //     this.brightness = 0.1
-  //     this.isNegative = false
-  //     this.isHalf = false
-  //   }
-  //
-  //   folder.add(controls, 'rx', 0.0, 200).onChange(v => this.uniforms.rx.value = v)
-  //   folder.add(controls, 'ry', 0.0, 200).onChange(v => this.uniforms.ry.value = v)
-  //   folder.add(controls, 'rz', 0.0, 200).onChange(v => this.uniforms.rz.value = v)
-  //   folder.add(controls, 'gx', 0.0, 200).onChange(v => this.uniforms.gx.value = v)
-  //   folder.add(controls, 'gy', 0.0, 200).onChange(v => this.uniforms.gy.value = v)
-  //   folder.add(controls, 'gz', 0.0, 200).onChange(v => this.uniforms.gz.value = v)
-  //   folder.add(controls, 'bx', 0.0, 200).onChange(v => this.uniforms.bx.value = v)
-  //   folder.add(controls, 'by', 0.0, 200).onChange(v => this.uniforms.by.value = v)
-  //   folder.add(controls, 'bz', 0.0, 200).onChange(v => this.uniforms.bz.value = v)
-  //   folder.add(controls, 'brightness', -1, 1).step(0.1).onChange(v => this.uniforms.brightness.value = v)
-  //   folder.add(controls, 'isNegative').onChange(v => this.uniforms.isNegative.value = v)
-  //   folder.add(controls, 'isHalf').onChange(v => this.uniforms.isHalf.value = v)
-  //   // folder.open()
-  // }
+  initGUI() {
+    const _this = this
+    const folder = this.gui.addFolder('Noise')
+    const controls = this.controls = new function() {
+      this.rx = _this.uniforms.rx.value
+      this.ry = _this.uniforms.ry.value
+      this.rz = _this.uniforms.rz.value
+      this.gx = _this.uniforms.gx.value
+      this.gy = _this.uniforms.gy.value
+      this.gz = _this.uniforms.gz.value
+      this.bx = _this.uniforms.bx.value
+      this.by = _this.uniforms.by.value
+      this.bz = _this.uniforms.bz.value
+      this.brightness = 0.1
+      this.isNegative = false
+      this.isHalf = false
+    }
+
+    folder.add(controls, 'rx', 0.0, 200).onChange(v => this.uniforms.rx.value = v)
+    folder.add(controls, 'ry', 0.0, 200).onChange(v => this.uniforms.ry.value = v)
+    folder.add(controls, 'rz', 0.0, 200).onChange(v => this.uniforms.rz.value = v)
+    folder.add(controls, 'gx', 0.0, 200).onChange(v => this.uniforms.gx.value = v)
+    folder.add(controls, 'gy', 0.0, 200).onChange(v => this.uniforms.gy.value = v)
+    folder.add(controls, 'gz', 0.0, 200).onChange(v => this.uniforms.gz.value = v)
+    folder.add(controls, 'bx', 0.0, 200).onChange(v => this.uniforms.bx.value = v)
+    folder.add(controls, 'by', 0.0, 200).onChange(v => this.uniforms.by.value = v)
+    folder.add(controls, 'bz', 0.0, 200).onChange(v => this.uniforms.bz.value = v)
+    folder.add(controls, 'brightness', -1, 1).step(0.1).onChange(v => this.uniforms.brightness.value = v)
+    folder.add(controls, 'isNegative').onChange(v => this.uniforms.isNegative.value = v)
+    folder.add(controls, 'isHalf').onChange(v => this.uniforms.isHalf.value = v)
+    // folder.open()
+  }
 
   _getNoiseBox() {
     const geo = new THREE.BoxGeometry(10, 10, 10)

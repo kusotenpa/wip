@@ -18,34 +18,34 @@ export default class LilneSphere extends BaseSketch {
     this._createSphere()
   }
 
-  // initGUI() {
-  //   const _this = this
-  //   const folder = this.gui.addFolder('LilneSphere')
-  //   const controls = this.controls = new function() {
-  //     this.targetVertex = _this.uniforms.targetVertex.value
-  //     this.isAddX = _this.uniforms.isAddX.value
-  //     this.isAddY = _this.uniforms.isAddY.value
-  //     this.isAddZ = _this.uniforms.isAddZ.value
-  //     this.isMultiX = _this.uniforms.isMultiX.value
-  //     this.isMultiY = _this.uniforms.isMultiY.value
-  //     this.isMultiZ = _this.uniforms.isMultiZ.value
-  //     this.isDivX = _this.uniforms.isDivX.value
-  //     this.isDivY = _this.uniforms.isDivY.value
-  //     this.isDivZ = _this.uniforms.isDivZ.value
-  //   }
-  //
-  //   folder.add(controls, 'targetVertex').onChange(v => this.uniforms.targetVertex.value = v)
-  //   folder.add(controls, 'isAddX').onChange(v => this.uniforms.isAddX.value = v)
-  //   folder.add(controls, 'isAddY').onChange(v => this.uniforms.isAddY.value = v)
-  //   folder.add(controls, 'isAddZ').onChange(v => this.uniforms.isAddZ.value = v)
-  //   folder.add(controls, 'isMultiX').onChange(v => this.uniforms.isMultiX.value = v)
-  //   folder.add(controls, 'isMultiY').onChange(v => this.uniforms.isMultiY.value = v)
-  //   folder.add(controls, 'isMultiZ').onChange(v => this.uniforms.isMultiZ.value = v)
-  //   folder.add(controls, 'isDivX').onChange(v => this.uniforms.isDivX.value = v)
-  //   folder.add(controls, 'isDivY').onChange(v => this.uniforms.isDivY.value = v)
-  //   folder.add(controls, 'isDivZ').onChange(v => this.uniforms.isDivZ.value = v)
-  //   folder.open()
-  // }
+  initGUI() {
+    const _this = this
+    const folder = this.gui.addFolder('LilneSphere')
+    const controls = this.controls = new function() {
+      this.targetVertex = _this.uniforms.targetVertex.value
+      this.isAddX = _this.uniforms.isAddX.value
+      this.isAddY = _this.uniforms.isAddY.value
+      this.isAddZ = _this.uniforms.isAddZ.value
+      this.isMultiX = _this.uniforms.isMultiX.value
+      this.isMultiY = _this.uniforms.isMultiY.value
+      this.isMultiZ = _this.uniforms.isMultiZ.value
+      this.isDivX = _this.uniforms.isDivX.value
+      this.isDivY = _this.uniforms.isDivY.value
+      this.isDivZ = _this.uniforms.isDivZ.value
+    }
+
+    folder.add(controls, 'targetVertex').onChange(v => this.uniforms.targetVertex.value = v)
+    folder.add(controls, 'isAddX').onChange(v => this.uniforms.isAddX.value = v)
+    folder.add(controls, 'isAddY').onChange(v => this.uniforms.isAddY.value = v)
+    folder.add(controls, 'isAddZ').onChange(v => this.uniforms.isAddZ.value = v)
+    folder.add(controls, 'isMultiX').onChange(v => this.uniforms.isMultiX.value = v)
+    folder.add(controls, 'isMultiY').onChange(v => this.uniforms.isMultiY.value = v)
+    folder.add(controls, 'isMultiZ').onChange(v => this.uniforms.isMultiZ.value = v)
+    folder.add(controls, 'isDivX').onChange(v => this.uniforms.isDivX.value = v)
+    folder.add(controls, 'isDivY').onChange(v => this.uniforms.isDivY.value = v)
+    folder.add(controls, 'isDivZ').onChange(v => this.uniforms.isDivZ.value = v)
+    folder.open()
+  }
 
   _createSphere() {
     const geo = new THREE.BufferGeometry()
