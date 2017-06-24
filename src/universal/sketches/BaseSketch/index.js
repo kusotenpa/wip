@@ -13,6 +13,7 @@ export default class BaseSketch {
   emitter = null
   scene = null
   gui = null
+  analyser = null
   canRender = false
   knob0 = 1
   knob1 = 1
@@ -23,6 +24,7 @@ export default class BaseSketch {
       canResize = true,
       gui,
       emitter,
+      analyser,
       renderer = {},
       camera = {},
     } = options
@@ -31,6 +33,7 @@ export default class BaseSketch {
     this.height = window.innerHeight
     this.gui = gui
     this.emitter = emitter
+    this.analyser = analyser
     this.__initRenderer(renderer)
     this.__initScene()
     this.__initCamera(camera)

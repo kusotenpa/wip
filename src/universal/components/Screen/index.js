@@ -4,6 +4,7 @@ import mitt from 'mitt'
 import { css } from 'aphrodite'
 const THREE = require('three')
 
+import Audio from '../../sketches/lib/Audio'
 import sketches from '../../sketches'
 import s from './style'
 import config from '../../config'
@@ -13,25 +14,28 @@ const MAX_BPM = 200
 export default class Screen extends Component {
 
   _sketches = null
+  _audio = null
 
   emitter = mitt()
 
   constructor() {
     super()
-    this._fullScreen = this._fullScreen.bind(this)
+    this._fullScreen = ::this._fullScreen
+    this._play = ::this._play
   }
 
   shouldComponentUpdate() {
     return false
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       isController = false,
     } = this.props
 
     !isController && config.useGui && this._initDatGUI()
     this._initSocket()
+    await this._initAudio()
     this._initRenderer()
     this._initSketches()
     isController && this.updateAngle()
@@ -49,6 +53,15 @@ export default class Screen extends Component {
     const socket = io('/', { transports: [ 'websocket' ] })
     socket.on('tidal', data => this._onReceiveTidal(data))
     socket.on('midi', data => this._onReceiveMidi(data))
+  }
+
+  async _initAudio() {
+    this._audio = new Audio()
+    await this._audio.set([
+      './stat/sound/0.mp3',
+      './stat/sound/1.mp3',
+      './stat/sound/2.mp3',
+    ])
   }
 
   _initRenderer() {
@@ -78,6 +91,7 @@ export default class Screen extends Component {
         useOrbitControls: !isController,
       },
       renderer: this.renderer,
+      analyser: this._audio.analyser,
     }
     this._sketches = sketches.map(Sketch => new Sketch(options))
   }
@@ -86,6 +100,7 @@ export default class Screen extends Component {
     return (
       <div>
         <div onClick={this._fullScreen} className={css(s.fullscreen)}>fullscreen</div>
+        <div onClick={this._play} className={css(s.play)}>play</div>
         <canvas ref={c => this._c = c} />
       </div>
     )
@@ -142,6 +157,10 @@ export default class Screen extends Component {
 
   _onWindowResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
+  }
+
+  _play() {
+    this._audio.play()
   }
 
   _fullScreen() {
