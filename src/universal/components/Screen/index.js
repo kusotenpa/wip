@@ -58,9 +58,12 @@ export default class Screen extends Component {
   async _initAudio() {
     this._audio = new Audio()
     await this._audio.set([
-      './stat/sound/0.mp3',
-      './stat/sound/1.mp3',
-      './stat/sound/2.mp3',
+      // './stat/sound/0.mp3',
+      // './stat/sound/1.mp3',
+      // './stat/sound/2.mp3',
+      // './stat/sound/6.mp3',
+      './stat/sound/5.mp3',
+      './stat/sound/4.mp3',
     ])
   }
 

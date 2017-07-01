@@ -12,6 +12,7 @@ export default class Audio {
   _fadeTime = 3 // seconds
   _playbackStartTime = 0 // seconds
   _nowPlaying = false
+  _gainNode = null
   analyser = null
 
   constructor() {
@@ -35,7 +36,7 @@ export default class Audio {
     const { _tracks, _watchId, analyser } = this
     const { buffer } = _tracks[ num ]
     const src = ctx.createBufferSource()
-    const gainNode = ctx.createGain()
+    const gainNode = this._gainNode = ctx.createGain()
     const currentTime = ctx.currentTime
 
     src.buffer = buffer
@@ -45,18 +46,16 @@ export default class Audio {
     gainNode.connect(ctx.destination)
     this._playbackStartTime = currentTime
     this._nowPlaying = true
-    this._setGainVolume(gainNode, buffer)
+    this._setFadeIn()
     !_watchId && this._watch()
     src.start()
   }
 
-  _setGainVolume(gainNode, buffer) {
-    const { _fadeTime } = this
+  _setFadeIn() {
+    const { _fadeTime, _gainNode } = this
     const currentTime = ctx.currentTime
-    const { duration } = buffer
-    gainNode.gain.setValueAtTime(0, currentTime)
-    gainNode.gain.linearRampToValueAtTime(1, currentTime + _fadeTime)
-    gainNode.gain.linearRampToValueAtTime(0, currentTime + duration - _fadeTime)
+    _gainNode.gain.setValueAtTime(0, currentTime)
+    _gainNode.gain.linearRampToValueAtTime(1, currentTime + _fadeTime)
   }
 
   _updateSrc(_src, num = this._current) {
@@ -69,6 +68,7 @@ export default class Audio {
     cancelAnimationFrame(this._watchId)
     src.stop()
     this._playbackStartTime = 0
+    this._current = 0
     this._nowPlaying = false
     this._watchId = null
   }
@@ -80,6 +80,7 @@ export default class Audio {
       _current,
       _playbackStartTime,
       _nowPlaying,
+      _gainNode,
     } = this
     const track = _tracks[ _current ]
     const canStartFading = ctx.currentTime - _playbackStartTime + _fadeTime > track.buffer.duration
@@ -87,6 +88,7 @@ export default class Audio {
     const hasNext = _tracks.length > _current + 1
 
     if (_nowPlaying && canStartFading && hasNext) {
+      _gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + _fadeTime)
       this._current++
       this.play()
     } else if (!hasNext && isEnd) {
