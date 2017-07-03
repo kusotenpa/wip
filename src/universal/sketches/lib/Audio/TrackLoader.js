@@ -2,15 +2,24 @@ let ctx
 
 export default class TrackLoader {
 
+  _tracks = []
+
   constructor() {
     ctx = require('./ctx')
   }
 
-  async load(sources, cb) {
-    await Promise.all(sources.map(async src => {
-      const buffer = await this._fetch(src)
+  async load(tracks, cb) {
+    let loadedCount = 0
+    this._tracks = tracks
+    while (await this._condition(loadedCount)) {
+      const buffer = await this._fetch(this._tracks[ loadedCount ])
       cb(buffer)
-    }))
+      loadedCount++
+    }
+  }
+
+  _condition(loadedCount) {
+    return new Promise(done => done(loadedCount < this._tracks.length))
   }
 
   async _fetch(url) {
