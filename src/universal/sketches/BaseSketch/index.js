@@ -37,7 +37,6 @@ export default class BaseSketch {
     this.__initRenderer(renderer)
     this.__initScene()
     this.__initCamera(camera)
-    this.setup()
     gui && config.useGui && this.initGUI()
     canResize && this.__setEvents()
   }

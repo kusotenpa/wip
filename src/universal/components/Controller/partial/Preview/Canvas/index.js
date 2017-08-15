@@ -1,6 +1,8 @@
 import { h, Component } from 'preact'
 const THREE = require('three')
 
+import Audio from '../../../../../sketches/lib/Audio'
+
 const BASE_SIZE = 18.75
 
 export default class Preview extends Component {
@@ -27,6 +29,7 @@ export default class Preview extends Component {
     const options = {
       canResize: false,
       camera: { useOrbitControls: false },
+      analyser: new Audio().analyser,
       renderer: new THREE.WebGLRenderer({ canvas: this._c, antialias: true }),
     }
 

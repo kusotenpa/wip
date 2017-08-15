@@ -15,7 +15,7 @@ export default class Analyser {
     const node = this.node = ctx.createAnalyser()
 
     node.fftSize = fftSize
-    node.smoothingTimeConstant = 0.5
+    this.setSmoothingTimeConstant(.5)
     this.times = new Uint8Array(node.fftSize)
     this.spectrums = new Uint8Array(node.frequencyBinCount)
     this.sampleRate = ctx.sampleRate
@@ -24,6 +24,10 @@ export default class Analyser {
   update() {
     this.node.getByteTimeDomainData(this.times)
     this.node.getByteFrequencyData(this.spectrums)
+  }
+
+  setSmoothingTimeConstant(value) {
+    this.node.smoothingTimeConstant = value
   }
 
   get() {

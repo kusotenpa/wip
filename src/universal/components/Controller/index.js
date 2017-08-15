@@ -71,8 +71,8 @@ export default class Controller extends Component {
 
   onMidiMessage(data) {
     data.isPad
-    ? this.update(data)
-    : this._throttleUpdate(data)
+      ? this.update(data)
+      : this._throttleUpdate(data)
   }
 
   update(data) {

@@ -13,7 +13,7 @@ const MAX_BPM = 200
 
 export default class Screen extends Component {
 
-  _sketches = null
+  _sketches = []
   _audio = null
 
   emitter = mitt()
@@ -37,7 +37,7 @@ export default class Screen extends Component {
     this._initSocket()
     await this._initAudio()
     this._initRenderer()
-    this._initSketches()
+    await this._initSketches()
     isController && this.updateAngle()
     !isController && this._setEvents()
     requestAnimationFrame(::this._renderSketch)
@@ -61,9 +61,26 @@ export default class Screen extends Component {
       // './stat/sound/0.mp3',
       // './stat/sound/1.mp3',
       // './stat/sound/2.mp3',
+      // './stat/sound/5.mp3',
       // './stat/sound/6.mp3',
-      './stat/sound/5.mp3',
-      './stat/sound/4.mp3',
+      // './stat/sound/21.mp3',
+
+      // './stat/sound/4.mp3',
+
+      // './stat/sound/7.mp3',
+      // './stat/sound/8.mp3',
+      // './stat/sound/9.mp3',
+      // './stat/sound/10.mp3',
+      // './stat/sound/11.mp3',
+      // './stat/sound/12.mp3',
+      // './stat/sound/13.mp3',
+      // './stat/sound/14.mp3',
+      // './stat/sound/15.mp3',
+      // './stat/sound/16.mp3',
+      // './stat/sound/17.mp3',
+      // './stat/sound/18.mp3',
+      // './stat/sound/19.mp3',
+      // './stat/sound/20.mp3',
     ])
   }
 
@@ -96,7 +113,12 @@ export default class Screen extends Component {
       renderer: this.renderer,
       analyser: this._audio.analyser,
     }
-    this._sketches = sketches.map(Sketch => new Sketch(options))
+    
+    return Promise.all(sketches.map(Sketch => {
+      const sketch = new Sketch(options)
+      this._sketches.push(sketch)
+      return sketch.setup()
+    }))
   }
 
   render() {
